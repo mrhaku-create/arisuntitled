@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Since 28 June 1970, 11:00 PM</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #111;
+      color: #fff;
+    }
+
+    .wrap {
+      text-align: center;
+      padding: 24px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .counter {
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .note {
+      margin-top: 12px;
+      opacity: 0.75;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Time passed since 28 June 1970, 11:00 PM</h1>
+    <div class="counter" id="counter">Loading...</div>
+    <div class="note">Set to 28 June 1970 23:00 at UTC+02:00.</div>
+  </div>
+
+  <script>
+    const startTime = new Date('1970-06-28T23:00:00+02:00').getTime();
+    const counter = document.getElementById('counter');
+
+    function updateCounter() {
+      const now = Date.now();
+      let diff = now - startTime;
+
+      if (diff < 0) {
+        counter.textContent = 'Not started yet';
+        return;
+      }
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      counter.textContent = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+  </script>
+</body>
+</html>
