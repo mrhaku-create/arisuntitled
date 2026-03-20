@@ -5,84 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>atitlos</title>
   <style>
-  :root {
-    color-scheme: dark;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+    :root {
+      color-scheme: dark;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-  }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
 
-  body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-      url('ChatGPT Image Mar 20, 2026, 06_11_22 PM.png') center center / cover no-repeat;
-    z-index: 0;
-  }
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        url('ChatGPT Image Mar 20, 2026, 06_11_22 PM.png') center center / cover no-repeat;
+      z-index: 0;
+    }
 
-  .wrap {
-    text-align: center;
-    padding: 24px;
-    position: relative;
-    z-index: 1;
-  }
+    .wrap {
+      text-align: center;
+      padding: 24px;
+      position: relative;
+      z-index: 1;
+      max-width: 90%;
+    }
 
-  h1 {
-    margin: 0 0 12px;
-    font-size: 1.4rem;
-    font-weight: 600;
-  }
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+    }
 
-  .counter {
-    font-size: clamp(1.5rem, 4vw, 3rem);
-    font-weight: 700;
-    line-height: 1.4;
-  }
+    .counter {
+      font-size: clamp(2.2rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.25;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+    }
 
-  .note {
-    margin-top: 12px;
-    opacity: 0.85;
-    font-size: 0.95rem;
-  }
-</style>
+    .note {
+      margin-top: 16px;
+      opacity: 0.9;
+      font-size: 1.1rem;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+    }
+  </style>
 </head>
 <body>
   <div class="wrap">
-    <h1> Time since aris won a football title: </h1>
+    <h1>Time since aris won a football title:</h1>
     <div class="counter" id="counter">Loading...</div>
     <div class="note">For Kleo</div>
   </div>
 
   <script>
-    const startTime = new Date('1970-06-28T23:00:00+02:00').getTime();
+    const startTime = new Date('1970-06-28T23:00:00+02:00');
     const counter = document.getElementById('counter');
 
     function updateCounter() {
-      const now = Date.now();
-      let diff = now - startTime;
+      const now = new Date();
 
-      if (diff < 0) {
+      if (now < startTime) {
         counter.textContent = 'Not started yet';
         return;
       }
 
-      const totalSeconds = Math.floor(diff / 1000);
-      const days = Math.floor(totalSeconds / 86400);
-      const hours = Math.floor((totalSeconds % 86400) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
+      let years = now.getFullYear() - startTime.getFullYear();
+      let months = now.getMonth() - startTime.getMonth();
+      let days = now.getDate() - startTime.getDate();
+      let hours = now.getHours() - startTime.getHours();
+      let minutes = now.getMinutes() - startTime.getMinutes();
+      let seconds = now.getSeconds() - startTime.getSeconds();
 
-      counter.textContent = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+      if (seconds < 0) {
+        seconds += 60;
+        minutes--;
+      }
+
+      if (minutes < 0) {
+        minutes += 60;
+        hours--;
+      }
+
+      if (hours < 0) {
+        hours += 24;
+        days--;
+      }
+
+      if (days < 0) {
+        const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += previousMonth.getDate();
+        months--;
+      }
+
+      if (months < 0) {
+        months += 12;
+        years--;
+      }
+
+      counter.textContent =
+        `${years} years ${months} months ${days} days ` +
+        `${hours} hours ${minutes} minutes ${seconds} seconds`;
     }
 
     updateCounter();
