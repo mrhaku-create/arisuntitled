@@ -5,43 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Time Since 28 June 1970, 11:00 PM</title>
   <style>
-    :root {
-      color-scheme: dark;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+  :root {
+    color-scheme: dark;
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #111;
-      color: #fff;
-    }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
 
-    .wrap {
-      text-align: center;
-      padding: 24px;
-    }
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+      url('ChatGPT Image Mar 20, 2026, 06_11_22 PM.png') center center / cover no-repeat;
+    z-index: 0;
+  }
 
-    h1 {
-      margin: 0 0 12px;
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
+  .wrap {
+    text-align: center;
+    padding: 24px;
+    position: relative;
+    z-index: 1;
+  }
 
-    .counter {
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      font-weight: 700;
-      line-height: 1.4;
-    }
+  h1 {
+    margin: 0 0 12px;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
 
-    .note {
-      margin-top: 12px;
-      opacity: 0.75;
-      font-size: 0.95rem;
-    }
-  </style>
+  .counter {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .note {
+    margin-top: 12px;
+    opacity: 0.85;
+    font-size: 0.95rem;
+  }
+</style>
 </head>
 <body>
   <div class="wrap">
